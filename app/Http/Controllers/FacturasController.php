@@ -104,5 +104,6 @@ class FacturasController extends Controller
         $factura->estado = false;
         $producto->save();
         $factura->save();
+        return redirect()->route('producto.index');
     }
 }
