@@ -12,7 +12,7 @@ class Producto extends Model
         'id','nombre', 'cantidad', 'fecha_vencimiento', 'numero_lote', 'precio'
     ];
     
-    public function facturas() {
-        return $this->hasMany('App\Factura');
+    public function factura() {
+        return $this->belongsTo('App\Factura');
     }
 }

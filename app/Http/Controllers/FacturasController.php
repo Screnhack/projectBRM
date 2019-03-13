@@ -16,8 +16,10 @@ class FacturasController extends Controller
     public function index()
     {
         $facturas = Factura::where('estado',true)->orderBy('id', 'ASC')->get();
+        $productos = Producto::orderBy('nombre', 'ASC')->get();
         return view('factura')
-                ->with('facturas', $facturas);
+             ->with('facturas', $facturas)
+             ->with('productos', $productos);
     }
 
     /**
