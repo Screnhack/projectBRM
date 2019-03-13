@@ -23,8 +23,13 @@ Route::get('/proveedor', function () {
 });
 
 Route::resource('producto','ProductosController');
+Route::resource('factura','FacturasController');
 
 Route::get('/inventario',[
 	'uses' => 'ProductosController@inventario',
 	'as'   => 'producto.inventario'
 ]);
+Route::get('factura/{id}/destroy',[
+		'uses'=>'FacturasController@destroy',
+		'as' =>'facturas.destroy'
+	]);

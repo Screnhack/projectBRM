@@ -16,10 +16,16 @@
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    <ul class="navbar-nav mr-auto">
 		      	<li class="nav-item active">
-		        	<a class="nav-link" href="/">Home</a>
+		        	<a class="nav-link" href="{{ route('/')}}">Home</a>
 		      	</li>
 		    	<li class="nav-item active">
 		        	<a class="nav-link" href="/proveedor">Proveedores</a>
+		    	</li>
+		    	<li class="nav-item active">
+		        	<a class="nav-link" href="{{ route('producto.inventario')}}">Inventario</a>
+		    	</li>
+		    	<li class="nav-item active">
+		        	<a class="nav-link" href="{{ route('factura.index')}}">Facturas</a>
 		    	</li>
 		      <!--<li class="nav-item">
 		        <a class="nav-link" href="#">Link</a>
@@ -47,6 +53,7 @@
 	<script src="{{asset('plugins/jquery/jquery-3.2.1.slim.min.js')}}" ></script>
     <script src="{{asset('plugins/jquery/popper.min.js')}}"></script>
     <script src="{{asset('plugins/bootstrap/bootstrap.min.js')}}"></script>
+    @yield('scripts')
     <script type="text/javascript">
     	function soloNumeros(e) {
                 var key = e.which || e.keyCode;
@@ -54,10 +61,7 @@
                     e.preventDefault();
                 }
             }
-
-
             function soloLetras(e) {
-
                 key = e.keyCode || e.which;
                 tecla = String.fromCharCode(key).toLowerCase();
                 letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";

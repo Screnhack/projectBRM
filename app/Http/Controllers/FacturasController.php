@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Factura;
 use App\Producto;
 
-class ProductosController extends Controller
+class FacturasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,9 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        $productos = Producto::where('estado',true)->orderBy('id', 'ASC')->get();
-        return view('home')
-                ->with('productos', $productos);
+        $facturas = Factura::where('estado',true)->orderBy('id', 'ASC')->get();
+        return view('factura')
+                ->with('facturas', $facturas);
     }
 
     /**
@@ -37,9 +38,19 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        $producto = new Producto($request->all());
-        $producto->save();
-        return redirect()->route('producto.inventario');
+        $factura = new Factura($request->all());
+        $producto = Producto::find($request->id_producto);
+        $cantidadFinal = (int)$producto->cantidad - (int)$factura->cantidad;
+        if($cantidadFinal>0){
+            $producto->cantidad = $cantidadFinal;
+            $producto->save();
+        } else {
+            $producto->cantidad = 0;
+            $producto->estado = false;
+            $producto->save();
+        }
+        $factura->save();
+        return redirect()->route('producto.index');
     }
 
     /**
@@ -50,8 +61,7 @@ class ProductosController extends Controller
      */
     public function show($id)
     {
-        $producto = Producto::find($id);
-        return view('compras')->with('producto',$producto);
+        //
     }
 
     /**
@@ -86,11 +96,11 @@ class ProductosController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function inventario()
-    {
-        $productos = Producto::where('estado',true)->orderBy('id', 'ASC')->get();
-        return view('inventario')->with('productos', $productos);
+        $factura = Factura::find($id);
+        $producto = Producto::find($factura->id_producto);
+        $cantidadFinal = (int)$producto->cantidad + (int)$factura->cantidad;
+        $factura->estado = false;
+        $producto->save();
+        $factura->save();
     }
 }

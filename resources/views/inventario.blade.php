@@ -8,19 +8,21 @@
 		<table class="table table-striped">
 		<thead>
 			<th>ID</th>
-			<th>Tipo</th>
-			<th>Descripcion</th>
-			<th>Accion</th>
+			<th>Nombre</th>
+			<th>Cantidad</th>
+			<th>fecha Vencimiento</th>
+			<th>Numero Lote</th>
+			<th>Precio</th>
 		</thead>
 		<tbody>
 			@foreach($productos as $producto)
 			<tr>
 				<td> {{ $producto->id }} </td>
 				<td> {{ $producto->nombre }} </td>
-				<td>{{ $producto->cantidad }}</td>
-				<td>{{ $producto->fecha_vencimiento }}</td>
-				<td>{{ $producto->numero_lote }}</td>
-				<td>{{ $producto->precio }}</td>
+				<td> {{ $producto->cantidad }} </td>
+				<td> {{ $producto->fecha_vencimiento }} </td>
+				<td> {{ $producto->numero_lote }} </td>
+				<td> {{ $producto->precio }} </td>
 			</tr>
 			@endforeach
 		</tbody>
